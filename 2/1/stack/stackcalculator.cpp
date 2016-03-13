@@ -8,10 +8,20 @@ int StackCalculator::calculator(char *expression)
     Stack *operations = new LinkedStack();
     Stack *numbers = new LinkedStack();
     int size = strlen(expression);
-    for (int i = 0; i < size; i++)
+    int number = 0;
+    int i = 0;
+    while (i < size)
     {
         if ('0' <= expression[i] && expression[i] <= '9')
-            numbers->push(expression[i] - '0');
+        {
+            number = 0;
+            while ('0' <= expression[i] && expression[i] <= '9')
+            {
+                number = number * 10 + expression[i] - '0';
+                i++;
+            }
+            numbers->push(number);
+        }
         if (isOperation(expression[i]))
         {
             if(!operations->isEmpty() && operations->top() != '(' && priority(expression[i]) <= priority(operations->top()))
@@ -25,6 +35,7 @@ int StackCalculator::calculator(char *expression)
                 numbers->push(calculate(numbers->pop(), numbers->pop(), operations->pop()));
             operations->pop();
         }
+        i++;
     }
     while (!operations->isEmpty())
         numbers->push(calculate(numbers->pop(), numbers->pop(), operations->pop()));
