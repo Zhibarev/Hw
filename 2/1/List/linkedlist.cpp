@@ -45,7 +45,7 @@ int LinkedList::remove(int position)
     return removeValue;
 }
 
-int LinkedList::extarct(int position)
+int LinkedList::extract(int position)
 {
     if (position > size)
         return 0;

@@ -6,7 +6,7 @@ class LinkedList : public List
 public:
     void add(int newValue, int position);
     int remove(int position);
-    int extarct(int position);
+    int extract(int position);
     void print();
     bool empty();
     int length();

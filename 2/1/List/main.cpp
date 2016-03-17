@@ -1,3 +1,4 @@
+#include <iostream>
 #include "linkedlist.h"
 #include "doublelinkedlist.h"
 
@@ -11,6 +12,7 @@ int main()
     linkedList->remove(2);
     if (linkedList->search(1) == 1 && !linkedList->empty())
         linkedList->print();
+    std::cout << linkedList->extract(3) << "\n";
     delete linkedList;
     List *doubleLinkedList = new DoubleLinkedList();
     for (int i = 0; i < 10; i++)
@@ -20,6 +22,7 @@ int main()
     doubleLinkedList->remove(2);
     if (doubleLinkedList->search(1) == 1 && !doubleLinkedList->empty())
         doubleLinkedList->print();
+    std::cout << doubleLinkedList->extract(3) << "\n";
     delete doubleLinkedList;
     return 0;
 }

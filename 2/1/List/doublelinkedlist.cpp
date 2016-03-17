@@ -55,7 +55,7 @@ int DoubleLinkedList::remove(int position)
     return removeValue;
 }
 
-int DoubleLinkedList::extarct(int position)
+int DoubleLinkedList::extract(int position)
 {
     if (position > size)
         return 0;
