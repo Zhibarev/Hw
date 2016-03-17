@@ -4,11 +4,14 @@
 class DoubleLinkedList : public List
 {
 public:
-    void add(int newValue);
-    bool remove(int removedValue);
+    DoubleLinkedList();
+    void add(int newValue, int position);
+    int remove(int position);
+    int extarct(int position);
     void print();
-    bool isEmpty();
-    bool search(int searchedValue);
+    bool empty();
+    int length();
+    int search(int value);
     void clear();
     ~DoubleLinkedList();
 private:
@@ -18,8 +21,9 @@ private:
         ListNode(int newValue, ListNode *previusNode, ListNode *nextNode);
         int value;
         ListNode *next;
-        ListNode *previus;
+        ListNode *previous;
     };
-    ListNode *head = new ListNode(0, nullptr, nullptr);
-    ListNode *tail = head;
+    ListNode *head;
+    ListNode *tail;
+    int size = 0;
 };

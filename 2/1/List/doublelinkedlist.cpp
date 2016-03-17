@@ -1,72 +1,100 @@
 #include <iostream>
 #include "doublelinkedlist.h"
 
-DoubleLinkedList::ListNode::ListNode(int newValue, ListNode *previusNode, ListNode *nextNode)
+DoubleLinkedList::ListNode::ListNode(int newValue, ListNode *previousNode, ListNode *nextNode)
 {
-    value = newValue;
-    previus = previusNode;
     next = nextNode;
+    previous = previousNode;
+    value = newValue;
+}
+
+DoubleLinkedList::DoubleLinkedList()
+{
+    head = new ListNode(0, nullptr, nullptr);
+    tail = new ListNode(0, head, nullptr);
+    head->next = tail;
 }
 
 DoubleLinkedList::~DoubleLinkedList()
 {
     clear();
     delete head;
+    delete tail;
 }
 
-
-void DoubleLinkedList::add(int newValue)
+int DoubleLinkedList::length()
 {
-    tail->next = new ListNode(newValue, tail, nullptr);
-    tail = tail->next;
+    return size;
 }
 
-bool DoubleLinkedList::remove(int removedValue)
+void DoubleLinkedList::add(int newValue, int position)
 {
-    ListNode *runner = head->next;
-    while (runner != nullptr && runner->value != removedValue)
+    if (position <= (size + 1))
+    {
+        ListNode *runner = head;
+        for (int i = 1; i < position; i++)
+            runner = runner->next;
+        runner->next = new ListNode(newValue, runner, runner->next);
+        runner->next->next->previous = runner->next;
+        size++;
+    }
+}
+
+int DoubleLinkedList::remove(int position)
+{
+    if (position > size)
+        return 0;
+    ListNode *runner = head;
+    for (int i = 1; i <= position; i++)
         runner = runner->next;
-    if (runner == nullptr)
-        return false;
-    runner->previus->next = runner->next;
-    if (runner == tail)
-        tail = tail->previus;
+    runner->previous->next = runner->next;
+    runner->next->previous = runner->previous;
+    int removeValue = runner->value;
     delete runner;
-    return true;
+    size--;
+    return removeValue;
 }
 
-bool DoubleLinkedList::isEmpty()
+int DoubleLinkedList::extarct(int position)
 {
-    return head->next == nullptr;
-}
-
-bool DoubleLinkedList::search(int searchedValue)
-{
-    ListNode *runner = head->next;
-    while (runner != nullptr && runner->value != searchedValue)
+    if (position > size)
+        return 0;
+    ListNode *runner = head;
+    for (int i = 1; i <= position; i++)
         runner = runner->next;
-    return runner != nullptr;
+    return runner->value;
+}
+
+bool DoubleLinkedList::empty()
+{
+    return head->next == tail;
+}
+
+int DoubleLinkedList::search(int value)
+{
+    ListNode *runner = head;
+    int position = 0;
+    do
+    {
+        runner = runner->next;
+        position++;
+    } while (runner != tail && runner->value != value);
+    return position;
 }
 
 void DoubleLinkedList::print()
 {
     ListNode *runner = head->next;
-    while (runner != nullptr)
+    while (runner != tail)
     {
         std::cout << runner->value << ' ';
         runner = runner->next;
     }
-    std::cout << '\n';
+    std ::cout << '\n';
 }
 
 void DoubleLinkedList::clear()
 {
-    ListNode *removedNode = head->next;
-    while (removedNode != nullptr)
-    {
-        head->next = head->next->next;
-        delete removedNode;
-        removedNode = head->next;
-    }
-    tail = head;
+    while (head->next != tail)
+        remove(1);
 }
