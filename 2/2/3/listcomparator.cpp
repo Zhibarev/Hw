@@ -1,22 +1,26 @@
 #include "listcomparator.h"
 
-bool ListComparator::operator<(const LinkedList &list)
+bool ListComparator::operator<(const ListComparator &list)
 {
-    if (this.size() < list.size())
-        return true;
-    return false;
+    return (length() < list.length());
 }
 
-bool ListComparator::operator>(const LinkedList &list)
+bool ListComparator::operator>(const ListComparator &list)
 {
-    if (this.size() > list.size())
-        return true;
-    return false;
+    return (length() > list.length());
 }
 
-bool ListComparator::operator==(const LinkedList &list)
+bool ListComparator::operator==(const ListComparator &list)
 {
-    if (this.size() == list.size())
-        return true;
-    return false;
+    return (length() == list.length());
+}
+
+bool ListComparator::operator<=(const ListComparator &list)
+{
+    return (length() <= list.length());
+}
+
+bool ListComparator::operator>=(const ListComparator &list)
+{
+   return (length() >= list.length());
 }

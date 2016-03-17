@@ -1,8 +1,9 @@
 #include <iostream>
 #include "linkedlist.h"
 
-LinkedList::ListNode::ListNode(int newValue)
+LinkedList::ListNode::ListNode(int newValue, ListNode *nextNode)
 {
+    next = nextNode;
     value = newValue;
 }
 
@@ -12,43 +13,66 @@ LinkedList::~LinkedList()
     delete head;
 }
 
-void LinkedList::add(int newValue)
+int LinkedList::length() const
 {
-    tail->next = new ListNode(newValue);
-    tail = tail->next;
-    size++;
+    return size;
 }
 
-bool LinkedList::remove(int removedValue)
+void LinkedList::add(int newValue, int position)
 {
+    if (position <= (size + 1))
+    {
+        ListNode *runner = head;
+        for (int i = 1; i < position; i++)
+            runner = runner->next;
+        runner->next = new ListNode(newValue, runner->next);
+        size++;
+    }
+}
+
+int LinkedList::remove(int position)
+{
+    if (position > size)
+        return 0;
     ListNode *runner = head;
-    while (runner->next != nullptr && runner->next->value != removedValue)
+    for (int i = 1; i < position; i++)
         runner = runner->next;
-    if (runner->next == nullptr)
-        return false;
-    ListNode *removedNode = runner->next;
-    runner->next = removedNode->next;
-    if (removedNode == tail)
-        tail = runner;
-    delete removedNode;
+    ListNode *newNext = runner->next->next;
+    int removeValue = runner->next->value;
+    delete runner->next;
+    runner->next = newNext;
     size--;
-    return true;
+    return removeValue;
 }
 
-bool LinkedList::empty()
+int LinkedList::extract(int position) const
+{
+    if (position > size)
+        return 0;
+    ListNode *runner = head;
+    for (int i = 1; i <= position; i++)
+        runner = runner->next;
+    return runner->value;
+}
+
+bool LinkedList::empty() const
 {
     return head->next == nullptr;
 }
 
-bool LinkedList::search(int searchedValue)
+int LinkedList::search(int value) const
 {
-    ListNode *runner = head->next;
-    while (runner != nullptr && runner->value != searchedValue)
+    ListNode *runner = head;
+    int position = 0;
+    do
+    {
         runner = runner->next;
-    return runner != nullptr;
+        position++;
+    } while (runner != nullptr && runner->value != value);
+    return position;
 }
 
-void LinkedList::print()
+void LinkedList::print() const
 {
     ListNode *runner = head->next;
     while (runner != nullptr)
@@ -61,13 +85,6 @@ void LinkedList::print()
 
 void LinkedList::clear()
 {
-    ListNode *removedNode = head->next;
-    while (removedNode != nullptr)
-    {
-        head->next = head->next->next;
-        delete removedNode;
-        removedNode = head->next;
-    }
-    tail = head;
-    size = 0;
+    while (head->next != nullptr)
+        remove(1);
 }

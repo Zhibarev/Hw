@@ -4,23 +4,23 @@
 class LinkedList : public List
 {
 public:
-    void add(int newValue);
-    bool remove(int removedValue);
-    void print();
-    bool empty();
-    bool search(int searchedValue);
+    void add(int newValue, int position);
+    int remove(int position);
+    int extract(int position) const;
+    void print() const;
+    bool empty() const;
+    int length() const;
+    int search(int value) const;
     void clear();
-    int size();
     ~LinkedList();
 private:
     class ListNode
     {
     public:
-        ListNode(int newValue);
+        ListNode(int newValue, ListNode *nextNode);
         int value;
-        ListNode *next = nullptr;
+        ListNode *next;
     };
-    ListNode *head = new ListNode(0);
-    ListNode *tail = head;
+    ListNode *head = new ListNode(0, nullptr);
     int size = 0;
 };

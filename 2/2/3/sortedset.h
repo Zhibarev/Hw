@@ -1,21 +1,24 @@
 #include "listcomparator.h"
 
-class SortedSet: public ListComparator
+class SortedSet
 {
 public:
-    SortedSet();
-    void addList(ListComparator *newList);
-    bool removeList(ListComparator *removedList);
-    void searchList(const ListComparator *searchedList);
-    bool isEmpty();
-    int sizeSet();
+    void add(ListComparator *newList);
+    ListComparator* remove(int position);
+    ListComparator* extract(int position);
+    bool empty();
+    int length();
+    int search(ListComparator* list);
+    void clear();
+    ~SortedSet();
 private:
     class Node
     {
     public:
-        Node(int newValue, Node *nextNode);
-        ListComparator list;
+        Node(ListComparator *newList, Node *nextNode);
+        ListComparator *list;
         Node *next;
     };
-    int size;
+    Node *head = new Node(nullptr, nullptr);
+    int size = 0;
 };
