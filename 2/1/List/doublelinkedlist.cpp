@@ -72,13 +72,15 @@ bool DoubleLinkedList::empty()
 
 int DoubleLinkedList::search(int value)
 {
-    ListNode *runner = head;
-    int position = 0;
-    do
+    ListNode *runner = head->next;
+    int position = 1;
+    while (runner != tail && runner->value != value)
     {
         runner = runner->next;
         position++;
-    } while (runner != tail && runner->value != value);
+    }
+    if (runner == tail)
+        return 0;
     return position;
 }
 

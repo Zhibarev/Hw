@@ -62,13 +62,15 @@ bool LinkedList::empty()
 
 int LinkedList::search(int value)
 {
-    ListNode *runner = head;
-    int position = 0;
-    do
+    ListNode *runner = head->next;
+    int position = 1;
+    while (runner != nullptr && runner->value != value)
     {
         runner = runner->next;
         position++;
-    } while (runner != nullptr && runner->value != value);
+    }
+    if (runner == nullptr)
+        return 0;
     return position;
 }
 
