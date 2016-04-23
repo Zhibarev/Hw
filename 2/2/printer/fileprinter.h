@@ -2,6 +2,7 @@
 #include <cstdio>
 #include "printer.h"
 
+///@brief Class to print to file
 class FilePrinter: public Printer
 {
 public:

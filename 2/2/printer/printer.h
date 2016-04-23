@@ -1,5 +1,6 @@
 #pragma once
 
+///@brief Interface for print array NxN in spiral order
 class Printer
 {
 public:
