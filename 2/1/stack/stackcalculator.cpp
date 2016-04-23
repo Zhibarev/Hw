@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 
-int StackCalculator::calculator(char *expression)
+int StackCalculator::calculator(const char *expression)
 {
     Stack *operations = new LinkedStack();
     Stack *numbers = new LinkedStack();
@@ -72,9 +72,9 @@ bool StackCalculator::isOperation(char symbol)
     return (symbol == '+' || symbol == '*' || symbol == '/' || symbol == '-');
 }
 
-int StackCalculator::priority(char symbol)
+int StackCalculator::priority(char action)
 {
-    if (symbol == '+' || symbol == '-')
+    if (action == '+' || action == '-')
         return 1;
     else
         return 2;

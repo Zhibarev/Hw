@@ -17,25 +17,25 @@ void ArrayStack::push(int newValue)
 
 int ArrayStack::pop()
 {
-    if (size == 0)
+    if (isEmpty())
         return 0;
     size--;
     return array[size];
 }
 
-bool ArrayStack::isEmpty()
+bool ArrayStack::isEmpty() const
 {
     return size == 0;
 }
 
-void ArrayStack::print()
+void ArrayStack::print() const
 {
     for (int i = size - 1; i >= 0; i--)
         std::cout << array[i] << " ";
     std ::cout << '\n';
 }
 
-int ArrayStack::length()
+int ArrayStack::length() const
 {
     return size;
 }
@@ -45,9 +45,9 @@ ArrayStack::~ArrayStack()
     delete []array;
 }
 
-int ArrayStack::top()
+int ArrayStack::top() const
 {
-    if (size == 0)
+    if (isEmpty())
         return 0;
     return array[size - 1];
 }

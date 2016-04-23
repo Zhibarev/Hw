@@ -1,16 +1,17 @@
 #pragma once
 #include "stack.h"
 
+///@brief Linked Stack
 class LinkedStack : public Stack
 {
 public:
     LinkedStack(){}
     void push(int newValue);
     int pop();
-    bool isEmpty();
-    int length();
-    void print();
-    int top();
+    bool isEmpty() const;
+    int length() const;
+    void print() const;
+    int top() const;
     ~LinkedStack();
 private:
     class StackNode

@@ -15,7 +15,7 @@ void LinkedStack::push(int newValue)
 
 int LinkedStack::pop()
 {
-    if (topNode == nullptr)
+    if (isEmpty())
         return 0;
     int value = topNode->value;
     StackNode *removedNode = topNode;
@@ -25,12 +25,12 @@ int LinkedStack::pop()
     return value;
 }
 
-bool LinkedStack::isEmpty()
+bool LinkedStack::isEmpty() const
 {
     return topNode == nullptr;
 }
 
-void LinkedStack::print()
+void LinkedStack::print() const
 {
     StackNode *runner = topNode;;
     while (runner != nullptr)
@@ -41,20 +41,20 @@ void LinkedStack::print()
     std::cout << '\n';
 }
 
-int LinkedStack::length()
+int LinkedStack::length() const
 {
     return size;
 }
 
 LinkedStack::~LinkedStack()
 {
-    while (topNode != nullptr)
+    while (!isEmpty())
         pop();
 }
 
-int LinkedStack::top()
+int LinkedStack::top() const
 {
-    if (topNode == nullptr)
+    if (isEmpty())
         return 0;
     return topNode->value;
 }
