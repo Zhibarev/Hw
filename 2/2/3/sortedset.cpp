@@ -1,6 +1,6 @@
 #include "sortedset.h"
 
-SortedSet::Node::Node(ListComparator *newList, Node *nextNode)
+SortedSet::Node::Node(LinkedList *newList, Node *nextNode)
 {
     next = nextNode;
     list = newList;
@@ -12,21 +12,22 @@ SortedSet::~SortedSet()
     delete head;
 }
 
-int SortedSet::length()
+int SortedSet::length() const
 {
     return size;
 }
 
-void SortedSet::add(ListComparator *newList)
+void SortedSet::add(LinkedList *newList)
 {
+    ListComparator comparator;
     Node *runner = head;
-    while (runner->next != nullptr && *runner->next->list < *newList)
+    while (runner->next != nullptr && comparator.less(*runner->next->list, *newList))
         runner = runner->next;
     runner->next = new Node(newList, runner->next);
     size++;
 }
 
-ListComparator* SortedSet::remove(int position)
+LinkedList* SortedSet::remove(int position)
 {
     if (position > size)
         return 0;
@@ -34,14 +35,14 @@ ListComparator* SortedSet::remove(int position)
     for (int i = 1; i < position; i++)
         runner = runner->next;
     Node *newNext = runner->next->next;
-    ListComparator* removeList = runner->next->list;
+    LinkedList* removeList = runner->next->list;
     delete runner->next;
     runner->next = newNext;
     size--;
     return removeList;
 }
 
-ListComparator* SortedSet::extract(int position)
+LinkedList* SortedSet::extract(int position) const
 {
     if (position > size)
         return 0;
@@ -51,21 +52,21 @@ ListComparator* SortedSet::extract(int position)
     return runner->list;
 }
 
-bool SortedSet::empty()
+bool SortedSet::empty() const
 {
     return head->next == nullptr;
 }
 
-int SortedSet::search(ListComparator *list)
+int SortedSet::search(LinkedList *list) const
 {
-    Node *runner = head;
-    int position = 0;
-    do
+    Node *runner = head->next;
+    int position = 1;
+    while (runner != nullptr && runner->list != list)
     {
         runner = runner->next;
         position++;
-    } while (runner != nullptr && runner->list != list);
-    return position;
+    }
+    return runner != nullptr ? position : 0;
 }
 
 void SortedSet::clear()

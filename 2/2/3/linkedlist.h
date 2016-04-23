@@ -1,6 +1,7 @@
 #pragma once
 #include "list.h"
 
+///@brief int Linked List
 class LinkedList : public List
 {
 public:

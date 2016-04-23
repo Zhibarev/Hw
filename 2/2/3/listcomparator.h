@@ -1,13 +1,13 @@
+#pragma once
 #include "linkedlist.h"
 
-class ListComparator: public LinkedList
+///Class for compare Linked lists based on their size
+class ListComparator
 {
 public:
     ListComparator(){}
-    bool operator>(const ListComparator &list);
-    bool operator<(const ListComparator &list);
-    bool operator==(const ListComparator &list);
-    bool operator>=(const ListComparator &list);
-    bool operator<=(const ListComparator &list);
+    bool less(const LinkedList &first, const LinkedList &second) const;
+    bool more(const LinkedList &first, const LinkedList &second) const;
+    bool equal(const LinkedList &first, const LinkedList &second) const;
     ~ListComparator(){}
 };
