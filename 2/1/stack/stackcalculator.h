@@ -14,7 +14,7 @@ private:
     int calculate(int firstNumber, int secondNumber, char action);
     bool isOperation(char symbol);
     /**
-     * @brief return priority of action ('/', '*' - 2 , '-', '+' - 3)
+     * @brief return priority of action ('/', '*' - 2 , '-', '+' - 1)
      * @param symbol
      * @return priority
      */
