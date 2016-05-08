@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>181</width>
-    <height>125</height>
+    <width>166</width>
+    <height>122</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,9 +32,12 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>160</width>
+      <width>141</width>
       <height>19</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>100</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -46,7 +49,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>181</width>
+     <width>166</width>
      <height>21</height>
     </rect>
    </property>
