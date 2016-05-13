@@ -24,7 +24,7 @@ private:
     Ui::MainWindow *ui;
     QSignalMapper *toOpen = new QSignalMapper(this);
     int getNumber(const QString &buttonName);
-    int chooseCell(int number);
+    void chooseCell(int &freeCells, int currentNumber);
     QPushButton *pressed = nullptr;
     int **field = nullptr;
     int size = 4;

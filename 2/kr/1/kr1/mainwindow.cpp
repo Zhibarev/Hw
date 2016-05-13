@@ -72,22 +72,17 @@ void MainWindow::createField()
     }
     srand(time(0));
     int freeCells = size * size;
-    int cell = 0;
     int currentNumber = 0;
     srand(time(0));
     while (freeCells != 0)
     {
         currentNumber = rand() % 2;
-        cell = chooseCell(freeCells);
-        field[cell % size][cell / size] = currentNumber;
-        freeCells--;
-        cell = chooseCell(freeCells);
-        field[cell % size][cell / size] = currentNumber;
-        freeCells--;
+        chooseCell(freeCells, currentNumber);
+        chooseCell(freeCells, currentNumber);
     }
 }
 
-int MainWindow::chooseCell(int freeCells)
+void MainWindow::chooseCell(int &freeCells, int currentNumber)
 {
     int number = rand() % freeCells;
     int i = -1;
@@ -98,5 +93,6 @@ int MainWindow::chooseCell(int freeCells)
         if (field[cell % size][cell / size] == -1)
             i++;
     }
-    return cell;
+    field[cell % size][cell / size] = currentNumber;
+    freeCells--;
 }
