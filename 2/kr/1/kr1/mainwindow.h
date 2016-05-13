@@ -17,13 +17,14 @@ public:
     ~MainWindow();
 
 public slots:
-    void open(QPushButton *button);
+    void open(const QString &buttonName);
 
 private:
     void createField();
     Ui::MainWindow *ui;
     QSignalMapper *toOpen = new QSignalMapper(this);
-    int getNumber(QPushButton *button);
+    int getNumber(const QString &buttonName);
+    int chooseCell(int number);
     QPushButton *pressed = nullptr;
     int **field = nullptr;
     int size = 4;
