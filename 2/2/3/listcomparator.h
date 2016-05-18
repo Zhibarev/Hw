@@ -1,7 +1,7 @@
 #pragma once
 #include "linkedlist.h"
 
-///Class for compare Linked lists based on their size
+///@brief Class for compare Linked lists based on their size
 class ListComparator
 {
 public:
