@@ -1,6 +1,7 @@
 #pragma once
 #include "sort.h"
 
+///@brief Quicksort
 class QuickSort: public Sort
 {
 public:

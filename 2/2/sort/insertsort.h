@@ -1,7 +1,7 @@
 #pragma once
 #include "sort.h"
 
-
+///@brief Insertion sort
 class InsertSort: public Sort
 {
 public:

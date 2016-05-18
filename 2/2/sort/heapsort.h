@@ -1,6 +1,7 @@
 #pragma once
 #include "sort.h"
 
+///@brief Heapsort
 class HeapSort: public Sort
 {
 public:
