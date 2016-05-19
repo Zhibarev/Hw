@@ -5,10 +5,7 @@ CONFIG += qt
 QT += testlib
 
 SOURCES += main.cpp \
-    tree.cpp \
-    treenode.cpp
+    set.cpp
 
 HEADERS += \
-    treenode.h \
-    tree.h \
-    treetest.h
+    set.h
