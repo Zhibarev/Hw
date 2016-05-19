@@ -1,7 +1,10 @@
 #pragma once
 #include "sort.h"
 
-///@brief Heapsort
+/**
+ * @brief Class inherets from Sort
+ * Realize Heapsort
+ */
 class HeapSort: public Sort
 {
 public:

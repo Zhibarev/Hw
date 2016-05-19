@@ -1,7 +1,10 @@
 #pragma once
 #include "sort.h"
 
-///@brief Bubblesort
+/**
+ * @brief Class inherets from Sort
+ * Realize Bubble sort
+ */
 class BubbleSort: public Sort
 {
 public:
