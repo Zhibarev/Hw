@@ -1,10 +1,14 @@
 #include "tree.h"
-#include "TreeNode.h"
+#include "operand.h"
+#include "operator.h"
 
 Tree::Tree(const std::string &expression)
 {
     int i = 0;
-    head = new TreeNode(expression, i);
+    if (expression[i] >= '0' && expression[i] <= '9')
+        head = new Operand(expression, i);
+    else
+        head = new Operator(expression, i);
 }
 
 void Tree::print(std::ofstream &out) const
