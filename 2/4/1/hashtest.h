@@ -58,7 +58,6 @@ private slots:
            table->add("1");
        for (int i = 0; i < 101; i++)
            table->add("2");
-       long int length = table->lengthOfMaxColumn();
        QVERIFY(table->lengthOfMaxColumn() == 101);
    }
 

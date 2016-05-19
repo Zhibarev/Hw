@@ -1,6 +1,6 @@
 #include "hashsimple.h"
 
-long int HashSimple::hash(const std::string &str, long int key) const
+unsigned long int HashSimple::hashRealize(const std::string &str, unsigned long int key) const
 {
     unsigned long int hash = 0;
     int length = str.length();

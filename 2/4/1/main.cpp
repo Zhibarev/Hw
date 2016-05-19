@@ -14,7 +14,7 @@ int main()
     QTest::qExec(&testHash);
     HashFunctionTest testHashFunction;
     QTest::qExec(&testHashFunction);
-    enum {add, remove, search, chooseHash, infoHash, help, exit, loadfactor = 0, lengthOfMaxColumn, printMaxColumn, simple = 0, hash1, hash2};
+    enum {add, remove, search, chooseHash, infoHash, help, exit, loadfactor = 0, lengthOfMaxColumn, printMaxColumn, simple = 0, faq6, rot13};
     HashFunction *hash = new HashSimple();
     HashTable *table = new HashTable(hash, 97);
     int command = help;
@@ -60,14 +60,14 @@ int main()
                         table->changeHash(hash);
                         break;
                     }
-                    case hash1:
+                    case faq6:
                     {
                         delete hash;
                         hash = new HashFAQ6();
                         table->changeHash(hash);
                         break;
                     }
-                    case hash2:
+                    case rot13:
                     {
                         delete hash;
                         hash = new HashROT13();

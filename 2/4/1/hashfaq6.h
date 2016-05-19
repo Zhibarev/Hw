@@ -3,11 +3,14 @@
 #include "hashfunction.h"
 #include <string>
 
-///@brief FAQ6 hash function, taked from https://habrahabr.ru/post/219139/
+/** @brief Class extend from abstract class HashFunction.
+ * Use FAQ6 hash function.
+ * Took from https://habrahabr.ru/post/219139/
+ */
 class HashFAQ6: public HashFunction
 {
 public:
     HashFAQ6(){}
-    long int hash(const std::string &str, long int key) const;
+    unsigned long int hashRealize(const std::string &str, unsigned long int key) const;
     ~HashFAQ6(){}
 };

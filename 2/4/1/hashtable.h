@@ -5,28 +5,31 @@
 #include "hashfunction.h"
 
 
-///@brief int hash table
+/**
+ * @brief Class to realize <int> hash table based on QList
+ * Table use user's hash function, which is represented by HashFunction class
+ */
 class HashTable
 {
 public:
-    HashTable(HashFunction *function, int newSize);
+    HashTable(const HashFunction *function, unsigned long int newSize);
     void add(const std::string &str);
     void remove(const std::string &str);
     bool search(const std::string &str) const;
-    void changeHash(HashFunction *function);
+    void changeHash(const HashFunction *function);
     double loadFactor() const;
-    long int countOfElements() const;
-    long int countOfColumns() const;
+    unsigned long int countOfElements() const;
+    unsigned long int countOfColumns() const;
     int lengthOfMaxColumn() const;
     void printMaxColumn() const;
-    long int countOfEmptyColumns() const;
+    unsigned long int countOfEmptyColumns() const;
     ~HashTable();
 
 private:
-    long int size = 0;
-    long int numberOfElements = 0;
+    unsigned long int size = 0;
+    unsigned long int numberOfElements = 0;
     QList<std::string> *table = nullptr;
-    HashFunction *hash = nullptr;
-    void rebuild(long int newSize);
-    bool isPrime(long int number) const;
+    const HashFunction *hash = nullptr;
+    void rebuild(unsigned long int newSize);
+    bool isPrime(unsigned long int number) const;
 };

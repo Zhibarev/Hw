@@ -1,6 +1,6 @@
 #include "hashrot13.h"
 
-long int HashROT13::hash(const std::string &string, long int key) const
+unsigned long int HashROT13::hashRealize(const std::string &string, unsigned long int key) const
 {
     unsigned long int hash = 0;
     const char *str = string.c_str();

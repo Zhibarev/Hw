@@ -1,6 +1,6 @@
 #include "hashfaq6.h"
 
-long int HashFAQ6::hash(const std::string &string, long int key) const
+unsigned long int HashFAQ6::hashRealize(const std::string &string, unsigned long int key) const
 {
     unsigned long int hash = 0;
     const char *str = string.c_str();

@@ -3,11 +3,16 @@
 #include <string>
 #include "hashfunction.h"
 
-///@brief string[i]*i hash function
+/** @brief Class extend from abstract class HashFunction
+ * Use function like sum(string[i] * i)
+ */
 class HashSimple: public HashFunction
 {
 public:
     HashSimple(){}
-    long int hash(const std::string &str, long int key) const;
+    /**
+     * @return sum(str[i] * (i + 1)) % key, i changes from 0 to str's end
+     */
+    unsigned long int hashRealize(const std::string &str, unsigned long int key) const;
     ~HashSimple(){}
 };
