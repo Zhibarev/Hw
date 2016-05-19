@@ -5,13 +5,10 @@ CONFIG += qt
 QT += testlib
 
 SOURCES += main.cpp \
-    operator.cpp \
-    operand.cpp \
-    tree.cpp
+    tree.cpp \
+    treenode.cpp
 
 HEADERS += \
-    treenode.h \
-    operator.h \
-    operand.h \
     tree.h \
+    treenode.h \
     treetest.h
