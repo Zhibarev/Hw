@@ -6,9 +6,12 @@ QT += testlib
 
 SOURCES += main.cpp \
     tree.cpp \
-    treenode.cpp
+    number.cpp \
+    action.cpp
 
 HEADERS += \
     tree.h \
     treenode.h \
-    treetest.h
+    treetest.h \
+    number.h \
+    action.h
