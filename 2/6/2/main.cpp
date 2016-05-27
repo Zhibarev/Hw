@@ -1,9 +1,8 @@
-#include <iostream>
+#include "testuniquielist.h"
 
-using namespace std;
-
-int main(int argc, char *argv[])
+int main()
 {
-    cout << "Hello World!" << endl;
+    UniqueListTest test;
+    QTest::qExec(&test);
     return 0;
 }

@@ -12,4 +12,5 @@ HEADERS += \
     list.h \
     linkedlist.h \
     testuniquielist.h \
-    uniquelist.h
+    uniquelist.h \
+    uniquieexeptions.h

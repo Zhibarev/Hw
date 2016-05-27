@@ -8,6 +8,7 @@ class List
 public:
     /**
      * @brief add value to specified position in list, list's first position is 1
+     * Max position to add - list's length + 1
      * @param value
      * @param position
      */

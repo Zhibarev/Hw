@@ -28,23 +28,21 @@ private slots:
    void testAddDublicate()
    {
        list->addUnique(1, 1);
-       try
-       {
-           list->addUnique(1 ,1);
-       }catch(const char* error)
-       {
-           QVERIFY(error == "Already include");
-       }
+       QVERIFY_EXCEPTION_THROWN(list->addUnique(1 , 1), AlreadyInclude);
    }
 
    void testAddOnWrongPosition()
    {
-       try
-       {
-           list->addUnique(1 ,1);
-       }catch(const char* error)
-       {
-           QVERIFY(error == "Already include");
-       }
+       QVERIFY_EXCEPTION_THROWN(list->addUnique(1, 10), OutOfRange);
+   }
+
+   void testRemoveFromWrongPosisition()
+   {
+       QVERIFY_EXCEPTION_THROWN(list->removeUnique(10), OutOfRange);
+   }
+
+   void testExtractFromWrongPosition()
+   {
+       QVERIFY_EXCEPTION_THROWN(list->extractUnique(1), OutOfRange);
    }
 };
