@@ -7,5 +7,7 @@ QT += testlib
 SOURCES += main.cpp
 
 HEADERS += \
-    set.h \
-    settest.h
+    settest.h \
+    treeexeptions.h \
+    avltree.h \
+    set.h

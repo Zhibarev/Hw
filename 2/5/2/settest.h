@@ -31,6 +31,17 @@ private slots:
        QVERIFY(set->search(1));
    }
 
+   void testAddDublicate()
+   {
+       set->add(1);
+       QVERIFY_EXCEPTION_THROWN(set->add(1), AlreadyInclude);
+   }
+
+   void testRemoveNonexistentValue()
+   {
+       QVERIFY_EXCEPTION_THROWN(set->remove(1), NothingToRemove);
+   }
+
    void testAddALot()
    {
        for (int i = 0; i < 1000; i++)
@@ -39,9 +50,15 @@ private slots:
            QVERIFY(set->search(i));
    }
 
+   void testSize()
+   {
+       for (int i = 0; i < 1000; i++)
+           set->add(i);
+       QVERIFY(set->size() == 1000);
+   }
+
    void testRemove()
    {
-       set->remove(1);
        set->add(1);
        set->remove(1);
        QVERIFY(!set->search(1));
@@ -67,8 +84,6 @@ private slots:
        Set<int> united = *set + toUnite;
        for (int i = 0; i < 140; i++)
            QVERIFY(united.search(i));
-        toUnite.clear();
-        united.clear();
    }
 
    void testIntersection()
