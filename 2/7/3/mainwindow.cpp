@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "rules.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -81,60 +82,7 @@ void MainWindow::changeCell(int index)
         else
             field[i][j]->setText("X");
         isZero = !isZero;
-        bool win = false;
-        for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-            win = checkDiagonalUpWin(i - k, j - k);
-        for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-            win = checkDiagonalDownWin(i + k, j - k);
-        for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-            win = checkHorizontalWin(i, j - k);
-        for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-            win = checkVerticalWin(i - k, j);
-        if (win)
-            startNewGame();
+          if (rules.checkWin(field, i, j, size, lengthToWin))
+              startNewGame();
     }
-}
-
-bool MainWindow::checkDiagonalUpWin(int i, int j) const
-{
-    if (i < 1 || j < 1 || i + lengthToWin - 1 > size || j + lengthToWin - 1 > size)
-        return false;
-    bool win = true;
-    for (int k = 1; k < lengthToWin && win; k++)
-        if (field[i][j]->text() != field[i + k][j + k]->text())
-            win = false;
-    return win;
-}
-
-bool MainWindow::checkDiagonalDownWin(int i, int j) const
-{
-    if (i < 1 || j < 1 || i > size || i - lengthToWin + 1 < 1 || j + lengthToWin - 1 > size)
-        return false;
-    bool win = true;
-    for (int k = 1; k < lengthToWin && win; k++)
-        if (field[i][j]->text() != field[i - k][j + k]->text())
-            win = false;
-    return win;
-}
-
-bool MainWindow::checkHorizontalWin(int i, int j) const
-{
-    if (i < 1 || j < 1 || j + lengthToWin - 1 > size)
-        return false;
-    bool win = true;
-    for (int k = 1; k < lengthToWin && win; k++)
-        if (field[i][j]->text() != field[i][j + k]->text())
-            win = false;
-    return win;
-}
-
-bool MainWindow::checkVerticalWin(int i, int j) const
-{
-    if (i < 1 || j < 1 || i + lengthToWin - 1 > size)
-        return false;
-    bool win = true;
-    for (int k = 1; k < lengthToWin && win; k++)
-        if (field[i][j]->text() != field[i + k][j]->text())
-            win = false;
-    return win;
 }

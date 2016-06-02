@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QSignalMapper>
 #include <QString>
+#include "rules.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,34 +35,7 @@ private:
     QPushButton *newGame = nullptr;
     QPushButton ***field = nullptr;
     bool isZero = false;
+    Rules rules;
 
     void startNewGame();
-    /**
-     * @brief check is diagonal from i,j to (i + lengthToWin - 1, j + lengthToWin - 1) give win
-     * @param i
-     * @param j
-     * @return if win return true, else return false
-     */
-    bool checkDiagonalDownWin(int i, int j) const;
-    /**
-     * @brief check is diagonal from i,j to (i - lengthToWin + 1, j + lengthToWin - 1) give win
-     * @param i
-     * @param j
-     * @return if win return true, else return false
-     */
-    bool checkDiagonalUpWin(int i, int j) const;
-    /**
-     * @brief check is horizontal from i,j to (i + lengthToWin, j) give win
-     * @param i
-     * @param j
-     * @return if win return true, else return false
-     */
-    bool checkHorizontalWin(int i, int j) const;
-    /**
-     * @brief check is Vertical from i,j to (i, j + lengthToWin - 1) give win
-     * @param i
-     * @param j
-     * @return if win return true, else return false
-     */
-    bool checkVerticalWin(int i, int j) const;
 };
