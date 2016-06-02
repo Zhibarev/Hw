@@ -35,11 +35,11 @@ void Bash::next()
 {
     if (!quotes.isEmpty())
     {
-        QString quote = quotes.takeFirst().findFirst("div[class=text]").toPlainText();
-        while (quote.isEmpty())
-            quote = quotes.takeFirst().findFirst("div[class=text]").toPlainText();
-        ui->rating->setText(quotes[0].findFirst("span[class=rating-o]").toPlainText());
-        ui->quote->setPlainText(quote);
+        quote = quotes.takeFirst();
+        while (quote.findFirst("div[class=text]").toPlainText().isEmpty())
+            quote = quotes.takeFirst();
+        ui->rating->setText(quote.findFirst("span[class=rating-o]").toPlainText());
+        ui->quote->setPlainText(quote.findFirst("div[class=text]").toPlainText());
         ui->bayan->setEnabled(true);
         ui->rateUp->setEnabled(true);
         ui->rateDown->setEnabled(true);
@@ -59,7 +59,7 @@ void Bash::disableRate()
 void Bash::rateUp()
 {
     QNetworkAccessManager manager;
-    manager.get(QNetworkRequest(QUrl("http://bash.im" + quotes.takeFirst().findFirst("a[class=up]").attribute("href"))));
+    manager.get(QNetworkRequest(QUrl("http://bash.im" + quote.findFirst("a[class=up]").attribute("href"))));
     ui->rating->setText(QString::number(ui->rating->text().toInt() + 1));
     disableRate();
 }
@@ -68,7 +68,7 @@ void Bash::rateUp()
 void Bash::rateDown()
 {
     QNetworkAccessManager manager;
-    manager.get(QNetworkRequest(QUrl("http://bash.im" + quotes.takeFirst().findFirst("a[class=down]").attribute("href"))));
+    manager.get(QNetworkRequest(QUrl("http://bash.im" + quote.findFirst("a[class=down]").attribute("href"))));
     ui->rating->setText(QString::number(ui->rating->text().toInt() - 1));
     disableRate();
 }
@@ -77,7 +77,7 @@ void Bash::rateDown()
 void Bash::bayan()
 {
     QNetworkAccessManager manager;
-    manager.get(QNetworkRequest(QUrl("http://bash.im" + quotes.takeFirst().findFirst("a[class=bayan]").attribute("href"))));
+    manager.get(QNetworkRequest(QUrl("http://bash.im" + quote.findFirst("a[class=bayan]").attribute("href"))));
     disableRate();
 }
 

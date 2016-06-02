@@ -42,6 +42,7 @@ private:
     Ui::Bash *ui;
     QWebPage *page = new QWebPage();
     QList<QWebElement> quotes;
+    QWebElement quote;
 
     void disableRate();
 };
