@@ -1,7 +1,8 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
+CONFIG += qt
+QT += testlib
 
 SOURCES += main.cpp \
     linkedstack.cpp \
@@ -12,4 +13,7 @@ HEADERS += \
     stack.h \
     linkedstack.h \
     arraystack.h \
-    stackcalculator.h
+    stackcalculator.h \
+    testarraystack.h \
+    testlinkedstack.h \
+    calculatortest.h
