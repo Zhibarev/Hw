@@ -1,7 +1,8 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
+CONFIG += qt
+QT += testlib
 
 SOURCES += main.cpp \
     bubblesort.cpp \
@@ -16,4 +17,5 @@ HEADERS += \
     insertsort.h \
     selectionsort.h \
     quicksort.h \
-    heapsort.h
+    heapsort.h \
+    sorttest.h
