@@ -97,7 +97,7 @@ public:
 
         quote = new QTextEdit(centralWidget);
         quote->setObjectName(QStringLiteral("quote"));
-        quote->setEnabled(false);
+        quote->setEnabled(true);
 
         gridLayout->addWidget(quote, 4, 0, 1, 5);
 

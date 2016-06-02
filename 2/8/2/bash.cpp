@@ -37,11 +37,8 @@ void Bash::next()
     {
         QString quote = quotes.takeFirst().findFirst("div[class=text]").toPlainText();
         while (quote.isEmpty())
-        {
-            quotes.removeFirst();
             quote = quotes.takeFirst().findFirst("div[class=text]").toPlainText();
-        }
-        ui->rating->setText(quotes.takeFirst().findFirst("span[class=rating-o]").toPlainText());
+        ui->rating->setText(quotes[0].findFirst("span[class=rating-o]").toPlainText());
         ui->quote->setPlainText(quote);
         ui->bayan->setEnabled(true);
         ui->rateUp->setEnabled(true);
