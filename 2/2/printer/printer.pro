@@ -1,7 +1,8 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
+CONFIG += qt
+QT += testlib
 
 SOURCES += main.cpp \
     fileprinter.cpp
@@ -9,7 +10,8 @@ SOURCES += main.cpp \
 HEADERS += \
     printer.h \
     fileprinter.h \
-    consoleprinter.h
+    consoleprinter.h \
+    printertest.h
 
 DISTFILES += \
     test.txt
