@@ -25,6 +25,18 @@ private slots:
        QVERIFY(*pointer == 1);
    }
 
+   void testReturnNullptr()
+   {
+       SharedPointer<int> pointer(nullptr);
+       QVERIFY_EXCEPTION_THROWN(*pointer, NullPointer);
+   }
+
+   void testCountNullptr()
+   {
+       SharedPointer<int> pointer(nullptr);
+       QVERIFY_EXCEPTION_THROWN(pointer.count(), NullPointer);
+   }
+
    void testCopy()
    {
        SharedPointer<int> pointer(new int(1));

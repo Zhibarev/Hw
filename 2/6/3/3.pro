@@ -8,4 +8,5 @@ SOURCES += main.cpp
 
 HEADERS += \
     sharedpointer.h \
-    pointertest.h
+    pointertest.h \
+    sharedpointerexeptions.h

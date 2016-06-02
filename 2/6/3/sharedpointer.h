@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sharedpointerexeptions.h"
+
 template <typename T>
 /**
  * @brief Realization of shared pointer
@@ -38,7 +40,20 @@ public:
 private:
     T* cell = nullptr;
     int* countOfPointers = nullptr;
+
+    void clear();
 };
+
+template <typename T>
+void SharedPointer<T>::clear()
+{
+    *countOfPointers = *countOfPointers - 1;
+    if (countOfPointers && *countOfPointers == 0)
+    {
+        delete cell;
+        delete countOfPointers;
+    }
+}
 
 template <typename T>
 SharedPointer<T>::SharedPointer(T *newCell)
@@ -59,6 +74,8 @@ SharedPointer<T>::SharedPointer(const SharedPointer<T> &pointer)
 template <typename T>
 T& SharedPointer<T>::operator*() const
 {
+    if (cell == nullptr)
+        throw NullPointer();
     return *cell;
 }
 
@@ -71,23 +88,13 @@ T* SharedPointer<T>::get() const
 template <typename T>
 SharedPointer<T>::~SharedPointer()
 {
-    *countOfPointers = *countOfPointers - 1;
-    if (countOfPointers && *countOfPointers == 0)
-    {
-        delete cell;
-        delete countOfPointers;
-    }
+    clear();
 }
 
 template <typename T>
 void SharedPointer<T>::operator=(SharedPointer<T> &pointer)
 {
-    *countOfPointers = *countOfPointers - 1;
-    if (*countOfPointers == 0)
-    {
-        delete cell;
-        delete countOfPointers;
-    }
+    clear();
     cell = pointer.get();
     countOfPointers = pointer.countOfPointers;
     *countOfPointers = *countOfPointers + 1;
@@ -96,5 +103,7 @@ void SharedPointer<T>::operator=(SharedPointer<T> &pointer)
 template <typename T>
 int SharedPointer<T>::count() const
 {
+    if (cell == nullptr)
+        throw NullPointer();
     return *countOfPointers;
 }
