@@ -1,14 +1,15 @@
-#include "calculatortest.h"
-#include "testarraystack.h"
-#include "testlinkedstack.h"
+#include <iostream>
+#include "stackcalculator.h"
+
+using namespace std;
 
 int main()
 {
-    CalculatorTest testCalc;
-    QTest::qExec(&testCalc);
-    ArrayStackTest testArrayStack;
-    QTest::qExec(&testArrayStack);
-    LinkedStackTest testLinkedStack;
-    QTest::qExec(&testLinkedStack);
+    StackCalculator calculator;
+    cout << "Enter expression\n";
+    char *expression = new char[1000];
+    cin >> expression;
+    cout << "Result\n" << calculator.calculator(expression);
+    delete expression;
     return 0;
 }
