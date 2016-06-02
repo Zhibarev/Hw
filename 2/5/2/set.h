@@ -32,14 +32,14 @@ public:
      * @param Set
      * @return union
      */
-    Set<T>& operator+(const Set<T> &set) const;
+    Set<T> operator+(const Set<T> &set) const;
     /**
      * @brief interseption of Sets
      * Use conversetion to vector
      * @param Set
      * @return interseption
      */
-    Set<T>& operator*(const Set<T> &set) const;
+    Set<T> operator*(const Set<T> &set) const;
 private:
     AVLTree<T> *tree = nullptr;
 };
@@ -75,31 +75,31 @@ bool Set<T>::search(const T &value) const
 }
 
 template<typename T>
-Set<T>& Set<T>::operator+(const Set<T> &set) const
+Set<T> Set<T>::operator+(const Set<T> &set) const
 {
-    Set *unionSet = new Set();
+    Set unionSet;
     QVector<T> firstVector = tree->toVector();
     QVector<T> secondVector = set.tree->toVector();
     int firstSize = firstVector.size();
     for (int i = 0; i < firstSize; i++)
-        unionSet->add(firstVector[i]);
+        unionSet.add(firstVector[i]);
     int secondSize = secondVector.size();
     for (int i = 0; i < secondSize; i++)
-        if (!unionSet->search(secondVector[i]))
-            unionSet->add(secondVector[i]);
-    return *unionSet;
+        if (!unionSet.search(secondVector[i]))
+            unionSet.add(secondVector[i]);
+    return unionSet;
 }
 
 template<typename T>
-Set<T>& Set<T>::operator*(const Set<T> &set) const
+Set<T> Set<T>::operator*(const Set<T> &set) const
 {
-    Set *interseptionSet = new Set();
+    Set interseptionSet;
     QVector<T> vector = set.tree->toVector();
     int size = vector.size();
     for (int i = 0; i < size; i++)
         if (tree->search(vector[i]))
-            interseptionSet->add(vector[i]);
-    return *interseptionSet;
+            interseptionSet.add(vector[i]);
+    return interseptionSet;
 }
 
 template<typename T>

@@ -36,7 +36,7 @@ public:
      * @brief print tree in form - value (Tree Tree), use recursive function printTree
      */
     void print() const;
-    QVector<T>& toVector() const;
+    QVector<T> toVector() const;
 
 private:
     class TreeNode
@@ -278,12 +278,12 @@ void AVLTree<T>::printTree(TreeNode *node) const
 }
 
 template<typename T>
-QVector<T>& AVLTree<T>::toVector() const
+QVector<T> AVLTree<T>::toVector() const
 {
-    QVector<T> *vector = new QVector<T>(size);
+    QVector<T> vector(size);
     int position = 0;
-    toVector(*vector, root, position);
-    return *vector;
+    toVector(vector, root, position);
+    return vector;
 }
 
 template<typename T>
