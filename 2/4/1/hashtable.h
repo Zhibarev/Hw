@@ -3,6 +3,7 @@
 #include <string>
 #include <QList>
 #include "hashfunction.h"
+#include "hashexceptions.h"
 
 
 /**
@@ -14,6 +15,11 @@ class HashTable
 public:
     HashTable(const HashFunction *function, unsigned long int newSize);
     void add(const std::string &str);
+    /**
+     * @brief remove string from table
+     * Throw NothingToRemove if table don't contain this string
+     * @param str
+     */
     void remove(const std::string &str);
     bool search(const std::string &str) const;
     void changeHash(const HashFunction *function);
