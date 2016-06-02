@@ -31,6 +31,8 @@ void HashTable::remove(const std::string &str)
 {
     if (search(str))
         table[hash->hash(str, size)].removeOne(str);
+    else
+        throw NothingToRemove();
 }
 
 bool HashTable::search(const std::string &str) const
@@ -106,7 +108,6 @@ void HashTable::rebuild(unsigned long int newSize)
             table[i].removeFirst();
             newTable[hash->hash(str, newSize)].append(str);
         }
-        table[i].~QList();
     }
     size = newSize;
     delete []table;
@@ -120,8 +121,6 @@ unsigned long int HashTable::countOfColumns() const
 
 HashTable::~HashTable()
 {
-    for(unsigned long int i = 0; i < size; i++)
-        table[i].~QList();
     delete []table;
 }
 

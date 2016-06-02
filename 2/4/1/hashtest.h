@@ -52,6 +52,11 @@ private slots:
         QVERIFY(!table->search("1"));
    }
 
+   void testRemoveNonexistentValue()
+   {
+       QVERIFY_EXCEPTION_THROWN(table->remove("1"), NothingToRemove);
+   }
+
    void testLengthOfMaxColumm()
    {
        for (int i = 0; i < 100; i++)

@@ -17,4 +17,5 @@ HEADERS += \
     hashfaq6.h \
     hashrot13.h \
     hashsimple.h \
-    hashfunctiontest.h
+    hashfunctiontest.h \
+    hashexceptions.h
