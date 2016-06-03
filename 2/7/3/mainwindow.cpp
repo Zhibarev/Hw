@@ -1,12 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "rules.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    fieldIsFill = new bool*[size + 1];
+    for (int i = 1; i <= size; i++)
+    {
+        fieldIsFill[i] = new bool[size + 1];
+        for (int j = 1; j <= size; j++)
+            fieldIsFill[i][j] = false;
+    }
 
     ui->centralWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     ui->centralWidget->setMinimumSize(90 * size, 90 * size);
@@ -15,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    for (int i = 1; i <= size; i++)
+        delete []fieldIsFill[i];
+    delete []fieldIsFill;
     if (field != nullptr)
     {
         for (int i = 1; i <= size; i++)
@@ -30,7 +42,10 @@ void MainWindow::startNewGame()
     for (int i = 1; i <= size; i++)
     {
         for (int j = 1; j <= size; j++)
+        {
+            fieldIsFill[i][j] = false;
             delete field[i][j];
+        }
         delete []field[i];
     }
     delete signalMapper;
@@ -75,8 +90,9 @@ void MainWindow::changeCell(int index)
 {
     int i = index / 10;
     int j = index - i * 10;
-    if (field[i][j]->text() != "O" && field[i][j]->text() != "X")
+    if (!fieldIsFill[i][j])
     {
+        fieldIsFill[i][j] = true;
         if (isZero)
             field[i][j]->setText("O");
         else
