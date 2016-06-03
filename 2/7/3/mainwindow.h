@@ -34,7 +34,7 @@ private:
     const int lengthToWin = 3;
     QPushButton *newGame = nullptr;
     QPushButton ***field = nullptr;
-    bool **fieldIsFill = nullptr;
+    int **fieldIsFill = nullptr;
     bool isZero = false;
     Rules rules;
 

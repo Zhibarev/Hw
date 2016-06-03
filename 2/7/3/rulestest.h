@@ -12,26 +12,20 @@ public:
 
 private:
     Rules rules;
-    QPushButton ***field = nullptr;
+    int **field = nullptr;
 
 private slots:
 
     void init()
     {
 
-        field = new QPushButton**[4];
+        field = new int*[4];
         for (int i = 1; i < 4; i++)
-            field[i] = new QPushButton*[4];
-        for (int i = 1; i < 4; i++)
-            for (int j = 1; j < 4; j++)
-                field[i][j] = new QPushButton;
+            field[i] = new int[4];
     }
 
     void cleanup()
     {
-        for (int i = 1; i < 4; i++)
-            for (int j = 1; j < 4; j++)
-                delete field[i][j];
         for (int i = 1; i < 4; i++)
             delete []field[i];
         delete []field;
@@ -39,38 +33,38 @@ private slots:
 
     void testNoWin()
     {
-        field[1][1]->setText("X");
+        field[1][1] = 1;
         QVERIFY(!rules.checkWin(field, 1, 1, 3, 3));
-        field[1][2]->setText("O");
-        field[1][3]->setText("X");
+        field[1][2] = -1;
+        field[1][3] = 1;
         QVERIFY(!rules.checkWin(field, 1, 1, 3, 3));
     }
 
     void testHorizontalWin()
     {
         for (int i = 1; i < 4; i++)
-            field[1][i]->setText("X");
+            field[1][i] = 1;
         QVERIFY(rules.checkWin(field, 1, 1, 3, 3));
     }
 
     void testVerticalWin()
     {
         for (int i = 1; i < 4; i++)
-            field[i][1]->setText("X");
+            field[i][1] = 1;
         QVERIFY(rules.checkWin(field, 1, 1, 3, 3));
     }
 
     void testDiagonalUpWin()
     {
         for (int i = 1; i < 4; i++)
-            field[i][i]->setText("X");
+            field[i][i] = 1;
         QVERIFY(rules.checkWin(field, 1, 1, 3, 3));
     }
 
     void testDiagonalDownWin()
     {
         for (int i = 1; i < 4; i++)
-            field[4 - i][i]->setText("X");
+            field[4 - i][i] = 1;
         QVERIFY(rules.checkWin(field, 3, 1, 3, 3));
     }
 };

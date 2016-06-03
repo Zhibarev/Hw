@@ -9,12 +9,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    fieldIsFill = new bool*[size + 1];
+    fieldIsFill = new int*[size + 1];
     for (int i = 1; i <= size; i++)
     {
-        fieldIsFill[i] = new bool[size + 1];
+        fieldIsFill[i] = new int[size + 1];
         for (int j = 1; j <= size; j++)
-            fieldIsFill[i][j] = false;
+            fieldIsFill[i][j] = 0;
     }
 
     ui->centralWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -92,13 +92,18 @@ void MainWindow::changeCell(int index)
     int j = index - i * 10;
     if (!fieldIsFill[i][j])
     {
-        fieldIsFill[i][j] = true;
         if (isZero)
+        {
             field[i][j]->setText("O");
+            fieldIsFill[i][j] = -1;
+        }
         else
+        {
             field[i][j]->setText("X");
+            fieldIsFill[i][j] = 1;
+        }
         isZero = !isZero;
-          if (rules.checkWin(field, i, j, size, lengthToWin))
+          if (rules.checkWin(fieldIsFill, i, j, size, lengthToWin))
               startNewGame();
     }
 }
