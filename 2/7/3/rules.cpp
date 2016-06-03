@@ -4,13 +4,10 @@ bool Rules::checkWin(int **field, int i, int j, int size, int lengthToWin) const
 {
     bool win = false;
     for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-        win = checkDiagonalUpWin(field, i - k, j - k, size, lengthToWin);
-    for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-        win = checkDiagonalDownWin(field, i + k, j - k, size, lengthToWin);
-    for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-        win = checkHorizontalWin(field, i, j - k, size, lengthToWin);
-    for (int k = 0; k <= lengthToWin - 1 && !win; k++)
-        win = checkVerticalWin(field, i - k, j, size, lengthToWin);
+        win = checkDiagonalUpWin(field, i - k, j - k, size, lengthToWin)
+                || checkDiagonalDownWin(field, i + k, j - k, size, lengthToWin)
+                    || checkHorizontalWin(field, i, j - k, size, lengthToWin)
+                        || checkVerticalWin(field, i - k, j, size, lengthToWin);
     return win;
 }
 

@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QLabel>
 #include <QSignalMapper>
 #include <QString>
 #include "rules.h"
@@ -35,6 +36,7 @@ private:
     QPushButton *newGame = nullptr;
     QPushButton ***field = nullptr;
     int **fieldIsFill = nullptr;
+    int numberOfFilling = 0;
     bool isZero = false;
     Rules rules;
 

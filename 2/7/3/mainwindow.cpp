@@ -52,11 +52,13 @@ void MainWindow::startNewGame()
     delete []field;
     field = nullptr;
     isZero = false;
+    numberOfFilling = 0;
     newGame = new QPushButton;
     newGame->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     newGame->setMinimumSize(80, 80);
+    newGame->setMaximumSize(80, 80);
     newGame->setText("New game");
-    ui->gridLayout->addWidget(newGame);
+    ui->gridLayout->addWidget(newGame, 1, 2);
     connect(newGame, SIGNAL(clicked(bool)), this, SLOT(createField()));
 }
 
@@ -79,7 +81,7 @@ void MainWindow::createField()
             field[i][j]->setMinimumSize(80, 80);
             ui->gridLayout->addWidget(field[i][j], i, j);
             connect(field[i][j], SIGNAL(clicked()), signalMapper, SLOT(map()));
-            signalMapper->setMapping(field[i][j], i*10 + j);
+            signalMapper->setMapping(field[i][j], i * (size + 1) + j);
         }
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(changeCell(int)));
 }
@@ -88,8 +90,8 @@ void MainWindow::createField()
 
 void MainWindow::changeCell(int index)
 {
-    int i = index / 10;
-    int j = index - i * 10;
+    int i = index / (size + 1);
+    int j = index - i * (size + 1);
     if (!fieldIsFill[i][j])
     {
         if (isZero)
@@ -103,7 +105,8 @@ void MainWindow::changeCell(int index)
             fieldIsFill[i][j] = 1;
         }
         isZero = !isZero;
-          if (rules.checkWin(fieldIsFill, i, j, size, lengthToWin))
-              startNewGame();
+        numberOfFilling++;
+        if (rules.checkWin(fieldIsFill, i, j, size, lengthToWin) || numberOfFilling == size * size)
+            startNewGame();
     }
 }
