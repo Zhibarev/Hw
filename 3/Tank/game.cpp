@@ -4,7 +4,7 @@
 #include "explosion.h"
 #include <QtMath>
 
-Game::Game(QWidget *parent, bool isLeftTankUser) :
+Game::Game(bool isLeftTankUser, QWidget *parent) :
     QGraphicsView(parent)
 {
     scene = new QGraphicsScene(this);
@@ -34,12 +34,17 @@ Game::Game(QWidget *parent, bool isLeftTankUser) :
     connect(&timer, QTimer::timeout, &timer, QTimer::stop);
 }
 
+void Game::enemyDoSmth(WhatHappen whatHappen)
+{
+    tankActions(whatHappen, enemyTank);
+}
+
 void Game::collisions(QGraphicsObject *object)
 {
     if (object->collidesWithItem(userTank))
-        emit end(false);
+        emit userDoSmth(lose);
     if (object->collidesWithItem(enemyTank))
-        emit end(true);
+        emit userDoSmth(win);
     if (dynamic_cast<Shot *>(object))
     {
         if (object->collidesWithItem(landscape))
@@ -59,35 +64,35 @@ void Game::collisions(QGraphicsObject *object)
     }
 }
 
-void Game::keyPressEvent(QKeyEvent *pressed)
+void Game::tankActions(WhatHappen command, SimpleTank *tank)
 {
-    switch(pressed->key())
+    switch(command)
     {
-    case Qt::Key_1:
-        userTank->setShot(simple);
+    case simpleShot:
+        tank->setShot(simple);
         break;
-    case Qt::Key_2:
-        userTank->setShot(heavy);
+    case heavyShot:
+        tank->setShot(heavy);
         break;
-    case Qt::Key_Up:
-        userTank->changeGunAngle(deltaAngle);
+    case gunUp:
+        tank->changeGunAngle(deltaAngle);
         break;
-    case Qt::Key_Down:
-        userTank->changeGunAngle(-deltaAngle);
+    case gunDown:
+        tank->changeGunAngle(-deltaAngle);
         break;
-    case Qt::Key_Right:
-        userTank->move(deltaTime, right);
-        changeLine(right, userTank);
+    case moveRight:
+        tank->move(deltaTime, rightDirection);
+        changeLine(rightDirection, tank);
         break;
-    case Qt::Key_Left:
-        userTank->move(deltaTime, left);
-        changeLine(left, userTank);
+    case moveLeft:
+        tank->move(deltaTime, leftDirection);
+        changeLine(leftDirection, tank);
         break;
-    case Qt::Key_Enter:
+    case shoot:
         if (!timer.isActive())
         {
             timer.start(1000);
-            Shot *shot = userTank->shoot();
+            Shot *shot = tank->shoot();
             scene->addItem(shot);
             connect(shot, SIGNAL(redraw(QGraphicsObject *)), this, SLOT(collisions(QGraphicsObject *)));
         }
@@ -95,7 +100,43 @@ void Game::keyPressEvent(QKeyEvent *pressed)
     }
 }
 
-void Game::changeLine(Direction direction, Tank * tank)
+void Game::keyPressEvent(QKeyEvent *pressed)
+{
+    switch(pressed->key())
+    {
+    case Qt::Key_1:
+        tankActions(simpleShot, userTank);
+        emit userDoSmth(simpleShot);
+        break;
+    case Qt::Key_2:
+        tankActions(heavyShot, userTank);
+        emit userDoSmth(heavyShot);
+        break;
+    case Qt::Key_Up:
+        tankActions(gunUp, userTank);
+        emit userDoSmth(gunUp);
+        break;
+    case Qt::Key_Down:
+        tankActions(gunDown, userTank);
+        emit userDoSmth(gunDown);
+        break;
+    case Qt::Key_Right:
+        tankActions(moveRight, userTank);
+        emit userDoSmth(moveRight);
+        break;
+    case Qt::Key_Left:
+        tankActions(moveLeft, userTank);
+        emit userDoSmth(moveLeft);
+        break;
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+        tankActions(shoot, userTank);
+        emit userDoSmth(shoot);
+        break;
+    }
+}
+
+void Game::changeLine(Direction direction, Tank *tank)
 {
     int border = currentLine + (direction * direction + direction) / 2;
     if (tank->x() * direction >= lines[border].x() * direction)

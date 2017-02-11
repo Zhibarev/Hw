@@ -3,7 +3,7 @@
 #include <QGraphicsItem>
 #include "Shot/shot.h"
 
-enum Direction {right = 1, left = -1};
+enum Direction {rightDirection = 1, leftDirection = -1};
 
 class Tank : public QGraphicsItem
 {

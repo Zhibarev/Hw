@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 CONFIG   += c++11
 
 
@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     landscape.cpp \
     game.cpp \
     explosion.cpp \
-    Shot/heavyshot.cpp
+    Shot/heavyshot.cpp \
+    TcpConnection/socket.cpp
 
 HEADERS  += gamewindow.h \
     Shot/shot.h \
@@ -44,6 +45,7 @@ HEADERS  += gamewindow.h \
     landscape.h \
     game.h \
     explosion.h \
-    Shot/heavyshot.h
+    Shot/heavyshot.h \
+    TcpConnection/socket.h
 
 FORMS    += gamewindow.ui

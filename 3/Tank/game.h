@@ -9,22 +9,23 @@
 #include <QtMath>
 #include <landscape.h>
 
-enum Command {leftMove, rightMove, gunUp, gunDown, shot};
+enum WhatHappen {moveLeft, moveRight, gunUp, gunDown, shoot, heavyShot, simpleShot, win, lose};
 
 class Game : public QGraphicsView
 {
     Q_OBJECT
 
 public:
-    explicit Game(QWidget *parent = nullptr, bool isLeftTankUser = true);
+    explicit Game(bool isLeftTankUser, QWidget *parent = nullptr);
+
+public slots:
+    void enemyDoSmth(WhatHappen whatHappen);
 
 private slots:
     void collisions(QGraphicsObject *object);
-//    void enemyDoSmth(Command command);
 
 signals:
-    void end(bool win);
-    void userDoSmth(Command command);
+    void userDoSmth(WhatHappen whatHappen);
 
 private:
     QGraphicsScene *scene;
@@ -40,4 +41,5 @@ private:
 
     void keyPressEvent(QKeyEvent *pressed);
     void changeLine(Direction direction, Tank *tank);
+    void tankActions(WhatHappen command, SimpleTank *tank);
 };

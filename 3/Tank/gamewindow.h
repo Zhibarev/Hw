@@ -1,13 +1,8 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QGraphicsScene>
-#include <Tank/simpletank.h>
-#include <QKeyEvent>
-#include <QTimer>
-#include <QVector>
-#include <QtMath>
-#include <landscape.h>
+#include "TcpConnection/socket.h"
+#include "TcpConnection/server.h"
 
 namespace Ui {
 class GameWindow;
@@ -23,6 +18,4 @@ public:
 
 private:
     Ui::GameWindow *ui;
-
-    void mousePressEvent(QMouseEvent *event);
 };

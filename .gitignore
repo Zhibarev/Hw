@@ -11,6 +11,7 @@ Makefile
 *.pydevproject
 .project
 .metadata
+*.qmake.stash
 bin/
 tmp/
 *.tmp
