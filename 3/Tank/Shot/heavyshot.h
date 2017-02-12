@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Shot/simpleshot.h"
-#include "explosion.h"
+#include "Shot/explosion.h"
 
 class HeavyShot : public SimpleShot
 {

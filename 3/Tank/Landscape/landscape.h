@@ -4,6 +4,9 @@
 #include <QVector>
 #include <QGraphicsItem>
 
+/**
+ * @brief description of broken line landscape
+ */
 class Landscape : public QGraphicsItem
 {
 public:

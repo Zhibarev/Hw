@@ -5,6 +5,9 @@
 #include "shot.h"
 
 
+/**
+ * @brief realization of circular shot
+ */
 class SimpleShot : public Shot
 {
 

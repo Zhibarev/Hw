@@ -5,6 +5,9 @@
 
 enum Direction {rightDirection = 1, leftDirection = -1};
 
+/**
+ * @brief interface of tank item
+ */
 class Tank : public QGraphicsItem
 {
 public:

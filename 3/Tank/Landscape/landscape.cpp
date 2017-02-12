@@ -15,7 +15,6 @@ QVector<QPointF> Landscape::toVector()
 
 float Landscape::angle(int i) const
 {
-    QPointF point = landscape[i];
     return qAtan((landscape[i + 1].y() - landscape[i].y()) / (landscape[i + 1].x() - landscape[i].x()));
 }
 

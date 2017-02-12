@@ -1,32 +1,35 @@
 #include "game.h"
 #include "Shot/simpleshot.h"
 #include "Shot/heavyshot.h"
-#include "explosion.h"
+#include "Shot/explosion.h"
 #include <QtMath>
 
 Game::Game(bool isLeftTankUser, QWidget *parent) :
     QGraphicsView(parent)
 {
     scene = new QGraphicsScene(this);
-    lines << QPointF(0, 350) << QPointF(150, 350) << QPointF(330, 150) << QPointF(400, 200)
-          << QPointF(600, 350) << QPointF(620, 120) << QPointF(700, 350) << QPointF(800, 350);
+    lines << QPointF(0, 250) << QPointF(150, 250) << QPointF(200, 200) << QPointF(300, 250)
+          << QPointF(400, 100) << QPointF(500, 200) << QPointF(600, 100) << QPointF(700, 250)
+          << QPointF(750, 200) << QPointF(800, 250);
     landscape = new Landscape(lines);
     scene->addItem(landscape);
     if (isLeftTankUser)
     {
         userTank = new SimpleTank(lines[0], landscape->angle(0), 0);
         enemyTank = new SimpleTank(lines[lines.size() - 1], landscape->angle(lines.size() - 2), M_PI);
-        currentLine = 0;
+        userLine = 0;
+        enemyLine = lines.size() - 2;
     }
     else
     {
         enemyTank = new SimpleTank(lines[0], landscape->angle(0), 0);
         userTank = new SimpleTank(lines[lines.size() - 1], landscape->angle(lines.size() - 2), M_PI);
-        currentLine = lines.size() - 2;
+        enemyLine = 0;
+        userLine = lines.size() - 2;
     }
     scene->addItem(userTank);
     scene->addItem(enemyTank);
-    this->setFixedSize(800, 400);
+    this->setFixedSize(800, 260);
     scene->setSceneRect(this->geometry());
     this->setScene(scene);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -34,17 +37,17 @@ Game::Game(bool isLeftTankUser, QWidget *parent) :
     connect(&timer, QTimer::timeout, &timer, QTimer::stop);
 }
 
-void Game::enemyDoSmth(WhatHappen whatHappen)
+void Game::enemyDoSmth(Command command)
 {
-    tankActions(whatHappen, enemyTank);
+    tankActions(command, enemyTank);
 }
 
 void Game::collisions(QGraphicsObject *object)
 {
     if (object->collidesWithItem(userTank))
-        emit userDoSmth(lose);
+        emit end(false);
     if (object->collidesWithItem(enemyTank))
-        emit userDoSmth(win);
+        emit end(true);
     if (dynamic_cast<Shot *>(object))
     {
         if (object->collidesWithItem(landscape))
@@ -64,7 +67,7 @@ void Game::collisions(QGraphicsObject *object)
     }
 }
 
-void Game::tankActions(WhatHappen command, SimpleTank *tank)
+void Game::tankActions(Command command, SimpleTank *tank)
 {
     switch(command)
     {
@@ -138,14 +141,18 @@ void Game::keyPressEvent(QKeyEvent *pressed)
 
 void Game::changeLine(Direction direction, Tank *tank)
 {
-    int border = currentLine + (direction * direction + direction) / 2;
+    int current = (tank == userTank) ? userLine : enemyLine;
+    int border = current + (direction * direction + direction) / 2;
     if (tank->x() * direction >= lines[border].x() * direction)
     {
         tank->setPos(lines[border]);
         if (border != lines.size() - 1 && border != 0)
         {
-            tank->setMovingAngle((landscape->angle(currentLine + direction)));
-            currentLine += direction;
+            tank->setMovingAngle((landscape->angle(current + direction)));
+            if (tank == userTank)
+                userLine += direction;
+            else
+                enemyLine += direction;
         }
     }
 }

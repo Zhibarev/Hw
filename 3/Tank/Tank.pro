@@ -31,21 +31,25 @@ SOURCES += main.cpp\
     Shot/simpleshot.cpp \
     Tank/tank.cpp \
     Tank/simpletank.cpp \
-    landscape.cpp \
-    game.cpp \
-    explosion.cpp \
+    Landscape/landscape.cpp \
+    Game/game.cpp \
+    Shot/explosion.cpp \
     Shot/heavyshot.cpp \
-    TcpConnection/socket.cpp
+    Game/localgame.cpp \
+    LocalNet/client.cpp \
+    LocalNet/server.cpp
 
 HEADERS  += gamewindow.h \
     Shot/shot.h \
     Shot/simpleshot.h \
     Tank/tank.h \
     Tank/simpletank.h \
-    landscape.h \
-    game.h \
-    explosion.h \
+    Landscape/landscape.h \
+    Game/game.h \
+    Shot/explosion.h \
     Shot/heavyshot.h \
-    TcpConnection/socket.h
+    Game/localgame.h \
+    LocalNet/client.h \
+    LocalNet/server.h
 
 FORMS    += gamewindow.ui
