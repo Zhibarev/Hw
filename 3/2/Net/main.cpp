@@ -1,5 +1,5 @@
-#include "computertest.h"
-#include "nettest.h"
+#include "Test/computertest.h"
+#include "Test/nettest.h"
 
 int main()
 {

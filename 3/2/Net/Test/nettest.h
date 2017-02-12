@@ -5,6 +5,7 @@
 #include "Net/localnet.h"
 #include "Computer/weakos.h"
 #include "Computer/windows.h"
+#include "Computer/linux.h"
 
 class NetTest : public QObject
 {
@@ -24,6 +25,26 @@ private slots:
        delete localNet;
        links.clear();
        computers.clear();
+   }
+
+   void testAttackAllSystems()
+   {
+       int size = 3;
+       computers.push_back(new Computer(new Windows, true));
+       computers.push_back(new Computer(new Windows, false));
+       computers.push_back(new Computer(new Linux, false));
+       links.resize(size);
+       for (int i = 0; i < size; i++)
+       {
+           links[i].resize(size);
+           for (int j = 0; j < size; j++)
+               links[i][j] = true;
+       }
+       localNet = new LocalNet(computers, links);
+       for (int i = 0; i < 1000; i++)
+                  localNet->step();
+       for (int i = 1; i < size; i++)
+           QVERIFY(computers[i]->isInfected());
    }
 
    void testUnlinkedNet()
