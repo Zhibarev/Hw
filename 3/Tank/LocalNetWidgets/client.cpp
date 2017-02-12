@@ -38,6 +38,7 @@ Client::~Client()
 
 void Client::connectToServer()
 {
+    socket->abort();
     socket->connectToHost("localhost", port->text().toInt());
 }
 

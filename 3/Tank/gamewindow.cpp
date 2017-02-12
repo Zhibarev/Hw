@@ -1,8 +1,8 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 #include <iostream>
-#include <LocalNet/client.h>
-#include <LocalNet/server.h>
+#include <LocalNetWidgets/client.h>
+#include <LocalNetWidgets/server.h>
 
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),

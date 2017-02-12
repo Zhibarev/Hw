@@ -36,8 +36,8 @@ SOURCES += main.cpp\
     Shot/explosion.cpp \
     Shot/heavyshot.cpp \
     Game/localgame.cpp \
-    LocalNet/client.cpp \
-    LocalNet/server.cpp
+    LocalNetWidgets/client.cpp \
+    LocalNetWidgets/server.cpp
 
 HEADERS  += gamewindow.h \
     Shot/shot.h \
@@ -49,7 +49,7 @@ HEADERS  += gamewindow.h \
     Shot/explosion.h \
     Shot/heavyshot.h \
     Game/localgame.h \
-    LocalNet/client.h \
-    LocalNet/server.h
+    LocalNetWidgets/client.h \
+    LocalNetWidgets/server.h
 
 FORMS    += gamewindow.ui
