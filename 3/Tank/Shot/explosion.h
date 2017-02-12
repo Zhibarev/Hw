@@ -3,6 +3,9 @@
 #include <QGraphicsObject>
 #include <QTimer>
 
+/**
+ * @brief represent of explosion like a growing circle
+ */
 class Explosion : public QGraphicsObject
 {
     Q_OBJECT
