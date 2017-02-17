@@ -1,4 +1,4 @@
-#include "Landscape.h"
+#include "landscape.h"
 
 #include <QPainter>
 #include <QtMath>

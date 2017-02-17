@@ -34,15 +34,15 @@ Game::Game(bool isLeftTankUser, QWidget *parent) :
     this->setScene(scene);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    connect(&timer, QTimer::timeout, &timer, QTimer::stop);
+    connect(&timer, SIGNAL(timeout()), &timer, SLOT(stop()));
 }
 
-void Game::enemyDoSmth(Command command)
+void Game::execute(Command command)
 {
     tankActions(command, enemyTank);
 }
 
-void Game::collisions(QGraphicsObject *object)
+void Game::handleCollisions(QGraphicsObject *object)
 {
     if (object->collidesWithItem(userTank))
         emit end(false);
@@ -56,7 +56,7 @@ void Game::collisions(QGraphicsObject *object)
             if (heavyShot)
             {
                 Explosion *explosion = heavyShot->explose();
-                connect(explosion, SIGNAL(redraw(QGraphicsObject *)), this, SLOT(collisions(QGraphicsObject *)));
+                connect(explosion, SIGNAL(redraw(QGraphicsObject *)), this, SLOT(handleCollisions(QGraphicsObject *)));
                 scene->addItem(explosion);
             }
             delete object;
@@ -97,7 +97,7 @@ void Game::tankActions(Command command, SimpleTank *tank)
             timer.start(1000);
             Shot *shot = tank->shoot();
             scene->addItem(shot);
-            connect(shot, SIGNAL(redraw(QGraphicsObject *)), this, SLOT(collisions(QGraphicsObject *)));
+            connect(shot, SIGNAL(redraw(QGraphicsObject *)), this, SLOT(handleCollisions(QGraphicsObject *)));
         }
         break;
     }

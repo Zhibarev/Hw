@@ -6,11 +6,17 @@
 #include <QTimer>
 #include <QVector>
 #include <QtMath>
-#include "LandScape/landscape.h"
+#include "Landscape/landscape.h"
 #include "Tank/simpletank.h"
 
+/**
+ * @brief description of tank's actions
+ */
 enum Command {moveLeft, moveRight, gunUp, gunDown, shoot, heavyShot, simpleShot};
 
+/**
+ * @brief main game wigdet
+ */
 class Game : public QGraphicsView
 {
     Q_OBJECT
@@ -19,10 +25,14 @@ public:
     explicit Game(bool isLeftTankUser, QWidget *parent = nullptr);
 
 public slots:
-    void enemyDoSmth(Command command);
+    /**
+     * @brief slot for execute enemy tank's action command
+     * @param command
+     */
+    void execute(Command command);
 
 private slots:
-    void collisions(QGraphicsObject *object);
+    void handleCollisions(QGraphicsObject *object);
 
 signals:
     void userDoSmth(Command command);

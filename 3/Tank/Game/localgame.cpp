@@ -14,7 +14,7 @@ void LocalGame::setSocket(QTcpSocket *socket)
 
 void LocalGame::read()
 {
-    enemyDoSmth(static_cast<Command>(socket->readAll().toInt()));
+    execute(static_cast<Command>(socket->readAll().toInt()));
 }
 
 void LocalGame::send(Command command)
