@@ -4,6 +4,6 @@ fibonacci n | n >= 0 = fibonacciRecursive n 0 1
 
 fibonacciRecursive :: Int -> Int -> Int -> Int
 fibonacciRecursive n current next | n == 0 = current
-								  | otherwise = fibonacciRecursive (n - 1) next (current + next)
+                                  | otherwise = fibonacciRecursive (n - 1) next (current + next)
 
 
