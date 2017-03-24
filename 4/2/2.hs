@@ -1,4 +1,4 @@
 getListOfDegrees :: Integer -> [Integer]
-getListOfDegrees degree = getListOfDegrees' [] 1 degree where
-	getListOfDegrees' list number (-1) = list
-	getListOfDegrees' list number counter = getListOfDegrees' (list ++ [number]) (number * 2) (counter - 1)
+getListOfDegrees degree = reverse $ getListOfDegrees' [1] degree where
+	getListOfDegrees' list 0 = list
+	getListOfDegrees' (x : xs) degree = getListOfDegrees' (x * 2 : x : xs) $ degree - 1
