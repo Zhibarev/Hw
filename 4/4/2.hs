@@ -1,18 +1,33 @@
-data AST = ASTnum Float | ASTvar Char | ASTop Char AST AST
+data Expr = Const Float 
+            | Var 
+            | Expr :+: Expr 
+            | Expr :-: Expr 
+            | Expr :*: Expr 
+            | Expr :/: Expr
     deriving Show
     
+derivate :: Expr -> Expr
+derivate (Const n) = Const 0
+derivate Var = Const 1
+derivate (expr1 :+: expr2) = (derivate expr1) :+: (derivate expr2)
+derivate (expr1 :-: expr2) = (derivate expr1) :-: (derivate expr2)
+derivate (expr1 :*: expr2) = ((derivate expr1) :*: expr2) :+: (expr1 :*: (derivate expr2))
+derivate (expr1 :/: expr2) = (((derivate expr1) :*: expr2) :-: (expr1 :*: (derivate expr2))) :/: (expr1 :*: expr2)
 
-derivative :: AST -> AST
-derivative (ASTnum a) = ASTnum 0
-derivative (ASTvar c) = ASTnum 1
-derivative (ASTop '*' left right) = ASTop '+' (ASTop '*' left $ derivative right) (ASTop '*' (derivative left) right) 
-derivative (ASTop '/' left right) = ASTop '/' (ASTop '-' (ASTop '*' left $ derivative right) (ASTop '*' (derivative left) right))
-                                              (ASTop '*' right right)
-derivative (ASTop plusMinus left right) = ASTop plusMinus (derivative left) (derivative right)
- 
---fromInfix :: [Char] -> AST
+simplify :: Expr -> Expr
+simplify ((Const 1) :*: expr) = simplify expr
+simplify (expr :*: (Const 1)) = simplify expr
+simplify ((Const 0) :*: expr) = Const 0
+simplify (expr :*: (Const 0)) = Const 0
+simplify (expr :/: (Const 1)) = simplify expr
+simplify ((Const 0) :+: expr) = simplify expr
+simplify (expr :+: (Const 0)) = simplify expr
+simplify (expr :-: (Const 0)) = simplify expr
+simplify (expr1 :*: expr2) = (simplify expr1) :*: (simplify expr2)
+simplify (expr1 :/: expr2) = (simplify expr1) :/: (simplify expr2)
+simplify (expr1 :+: expr2) = (simplify expr1) :+: (simplify expr2)
+simplify (expr1 :-: expr2) = (simplify expr1) :-: (simplify expr2)
+simplify expr = expr
 
-
---toInfix :: AST -> [Char]
-
---reduceExp :: [Char] -> [Char]
+simpleDer :: Expr -> Expr
+simpleDer = simplify . derivate
